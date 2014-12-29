@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Input-Mask.js Sample Use</title>
+	<script type="text/javascript" src="../input-mask.js" ></script>
+	<script>
+		function onLoad() {
+			new InputMask().Initialize(document.querySelectorAll("#sample-ssnmask"),
+			{
+				mask: InputMaskDefaultMask.Ssn, 
+				placeHolder: "SSN: 999-99-9999" 
+			});
+			
+			new InputMask().Initialize(document.querySelectorAll("#sample-date"),
+			{
+				mask: InputMaskDefaultMask.Date, 
+				placeHolder: "Date: 01/01/2015" 
+			});			
+			
+			new InputMask().Initialize(document.querySelectorAll("#sample-phone"),
+			{
+				mask: InputMaskDefaultMask.Phone, 
+				placeHolder: "Phone: (999) 999-9999"
+			});
+		}
+	</script>
+</head>
+<body onload="onLoad()">
+	<form action="" method="post">
+  <fieldset>
+    <legend>input-mask.js Samples</legend>
+    
+		<div>
+			<label for="sample-ssnmask">SSN:</label>
+			<input type="text" id="sample-ssnmask"></input>
+		</div>
+    
+		<div>
+			<label for="sample-date">Date:</label>
+			<input type="text" id="sample-date"></input>
+		</div>
+    
+		<div>
+			<label for="sample-phone">Phone:</label>
+			<input type="text" id="sample-phone"></input>
+		</div>
+  </fieldset>	
+	</form>
+
+</body>
+</html>
+
