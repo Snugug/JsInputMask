@@ -427,14 +427,14 @@ var InputMask = (function() {
     var onPaste = function(element, event, data) {
         var pastedText = "";
 
-        if (event != null && window.clipboardData && window.clipboardData.getData) {
+        if (data != null && data !== "") {
+            pastedText = data;
+        } else if (event != null && window.clipboardData && window.clipboardData.getData) {
             pastedText = window.clipboardData.getData("text");
         } else if (event != null && event.clipboardData && event.clipboardData.getData) {
             pastedText = event.clipboardData.getData("text/plain");
-        } else if (data != null && data !== "") {
-            pastedText = data;
         }
-
+        
         if (pastedText != null && pastedText !== "") {
             for (var j = 0; j < formatCharacters.length; j++) {
                 pastedText.replace(formatCharacters[j], "");
@@ -453,7 +453,7 @@ var InputMask = (function() {
 
                 keyDownEvent.keyCode = keyDownEvent.which = pastedText[i].charCodeAt(0);
 
-                element.dispatchEvent ? element.dispatchEvent(keyDownEvent) : element.fireEvent("onkeydown", keyDownEvent);
+                onKeyDown(element, keyDownEvent);
             }
         }
 
@@ -538,6 +538,8 @@ var InputMask = (function() {
                     formatWithMask(element);
                 }
             });
+
+            document.documentElement.scrollTop = 0;
         }
     };
 });
