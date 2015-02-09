@@ -467,10 +467,26 @@ var InputMask = (function() {
             value = getFormattedDateTime(element.value);
         }
 
+        if (value == null || value === "") {
+            return;
+        }
+
         element.value = "";
 
-        if (value != null && value !== "") {
-            onPaste(element, null, value);
+        for (var i = 0; i < value.length; i++) {
+            if (formatCharacters.indexOf(value[i]) > -1) {
+                continue;
+            }
+
+            if (hasMask) {
+                checkAndInsertMaskCharacters(element, getCursorPosition(element));
+            }
+
+            insertCharacterAtIndex(element, getCursorPosition(element), value[i]);
+
+            if (hasMask) {
+                checkAndInsertMaskCharacters(element, getCursorPosition(element));
+            }
         }
     };
 
@@ -539,7 +555,9 @@ var InputMask = (function() {
                 }
             });
 
-            document.documentElement.scrollTop = 0;
+            document.activeElement.blur();
+
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
         }
     };
 });
